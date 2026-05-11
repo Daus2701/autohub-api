@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String   @unique
+  password  String
+  role      String   @default("customer")
+  createdAt DateTime @default(now())
+
+  vehicles  Vehicle[]
+  bookings  Booking[]
+}
+
+model Vehicle {
+  id          String   @id @default(uuid())
+  userId      String
+  brand       String
+  model       String
+  plateNumber String
+  mileage     Int
+  year        Int
+
+  user        User     @relation(fields: [userId], references: [id])
+  bookings    Booking[]
+}
+
+model Booking {
+  id          String        @id @default(uuid())
+  userId      String
+  vehicleId   String
+  bookingDate DateTime
+  totalPrice  Int
+  status      String
+  timeSlot    String
+
+  user         User          @relation(fields: [userId], references: [id])
+  vehicle      Vehicle       @relation(fields: [vehicleId], references: [id])
+  bookingItems BookingItem[]
+}
+
+model BookingItem {
+  id         String   @id @default(uuid())
+  bookingId  String
+  serviceId  String
+  quantity   Int
+  subtotal   Int
+
+  booking    Booking  @relation(fields: [bookingId], references: [id])
+  service    Service  @relation(fields: [serviceId], references: [id])
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  categoryId  String
+  name        String
+  description String
+  price       Int
+
+  category     ServiceCategory @relation(fields: [categoryId], references: [id])
+  bookingItems BookingItem[]
+}
+
+model ServiceCategory {
+  id       String    @id @default(uuid())
+  name     String
+  image    String
+
+  services Service[]
+}
