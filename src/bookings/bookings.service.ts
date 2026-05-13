@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
+import { UpdateBookingDto } from './dto/update-booking.dto';
 
 @Injectable()
 export class BookingsService {
@@ -35,12 +36,63 @@ export class BookingsService {
   }
 
   async findAll() {
-     return this.prisma.booking.findMany({
-         include: {
-             user: true,
-             vehicle: true,
-            },
-        });
-    }
-    
+    return this.prisma.booking.findMany({
+      include: {
+        user: true,
+        vehicle: true,
+      },
+    });
+  }
+
+  async findOne(id: string) {
+    return this.prisma.booking.findUnique({
+      where: {
+        id,
+      },
+
+      include: {
+        user: true,
+        vehicle: true,
+      },
+    });
+  }
+
+  async update(id: string, updateBookingDto: UpdateBookingDto) {
+    return this.prisma.booking.update({
+      where: {
+        id,
+      },
+
+      data: {
+        ...(updateBookingDto.bookingDate && {
+          bookingDate: new Date(updateBookingDto.bookingDate),
+        }),
+
+        ...(updateBookingDto.totalPrice && {
+          totalPrice: updateBookingDto.totalPrice,
+        }),
+
+        ...(updateBookingDto.status && {
+          status: updateBookingDto.status,
+        }),
+
+        ...(updateBookingDto.timeSlot && {
+          timeSlot: updateBookingDto.timeSlot,
+        }),
+      },
+
+      include: {
+        user: true,
+        vehicle: true,
+      },
+    });
+  }
+
+  async remove(id: string) {
+    return this.prisma.booking.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
