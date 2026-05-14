@@ -98,7 +98,7 @@ This project was built using NestJS, Prisma ORM, and PostgreSQL as part of a fin
 
 The database schema was designed using DrawSQL.
 
-![DrawSQL Diagram](./assets/drawsql-diagram.png)
+![DrawSQL Diagram](./assets/drawsql-diagram.jpg)
 
 ---
 
