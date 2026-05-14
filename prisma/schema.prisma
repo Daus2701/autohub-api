@@ -41,6 +41,9 @@ model Booking {
   status      String
   timeSlot    String
 
+  paymentStatus  String        @default("PENDING")
+  paymentMethod  String?
+
   user         User          @relation(fields: [userId], references: [id])
   vehicle      Vehicle       @relation(fields: [vehicleId], references: [id])
   bookingItems BookingItem[]

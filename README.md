@@ -1,98 +1,244 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# AutoHub API 🚗🔧
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+AutoHub API is a backend service for managing automotive workshop bookings, vehicle services, payments, and appointment scheduling.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This project was built using NestJS, Prisma ORM, and PostgreSQL as part of a final software engineering project.
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# ✨ Features
 
-## Project setup
+## Authentication
+- User registration
+- User login
+- JWT authentication
+- Protected routes
+
+## Users
+- Create user
+- Get all users
+- Get user by ID
+- Update user
+- Delete user
+
+## Vehicles
+- Register vehicle
+- Get all vehicles
+- Get vehicle by ID
+- Update vehicle
+- Delete vehicle
+
+## Services
+- Create workshop service
+- Get all services
+- Get service by ID
+- Update service
+- Delete service
+
+## Service Categories
+- Create service category
+- Get all service categories
+- Update service category
+- Delete service category
+
+## Bookings
+- Create booking
+- Prevent duplicate time slot booking
+- Get all bookings
+- Get booking by ID
+- Update booking
+- Delete booking
+
+## Booking Items
+- Add service items into booking
+- Calculate subtotal
+- Connect booking with workshop services
+
+## Payment System
+- Store payment method
+- Store payment status
+- Update payment status
+- Auto-confirm booking after payment
+
+## Booking Status System
+- Pending
+- Confirmed
+- Completed
+
+## Available Slots API
+- Show booked slots
+- Show available slots
+- Prevent double booking
+
+## Dashboard Summary
+- Total bookings
+- Completed bookings
+- Pending bookings
+- Confirmed bookings
+- Total revenue
+
+## API Documentation
+- Swagger UI integrated
+
+---
+
+# 🛠️ Tech Stack
+
+- NestJS
+- TypeScript
+- Prisma ORM
+- PostgreSQL
+- Swagger
+- JWT Authentication
+- Class Validator
+
+---
+
+# 🗂️ Database Design
+
+The database schema was designed using DrawSQL.
+
+![DrawSQL Diagram](./assets/drawsql-diagram.png)
+
+---
+
+# 🔄 System Workflow
+
+The following workflow explains the booking and payment process inside AutoHub.
+
+![Workflow Diagram](./assets/workflow-diagram.png)
+
+---
+
+# 📦 Installation
+
+## Clone Repository
 
 ```bash
-$ npm install
+git clone <your-github-repository>
 ```
 
-## Compile and run the project
+## Enter Project Folder
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cd autohub-api
 ```
 
-## Run tests
+## Install Dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+# ⚙️ Environment Variables
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Create a `.env` file in the root directory.
+
+Example:
+
+```env
+DATABASE_URL="postgresql://postgres:password@localhost:5432/autohub"
+JWT_SECRET="your-secret-key"
+PORT=3001
+```
+
+---
+
+# 🗄️ Database Migration
+
+Run Prisma migration:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npx prisma migrate dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Generate Prisma client:
 
-## Resources
+```bash
+npx prisma generate
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# ▶️ Running the Application
 
-## Support
+## Development Mode
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npm run start:dev
+```
 
-## Stay in touch
+## Production Mode
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+npm run start:prod
+```
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+# 📘 Swagger Documentation
+
+Swagger API documentation is available at:
+
+```bash
+http://localhost:3001/api
+```
+
+---
+
+# 📂 API Modules
+
+| Module | Description |
+|---|---|
+| Auth | Authentication & JWT |
+| Users | User management |
+| Vehicles | Vehicle management |
+| Services | Workshop services |
+| Service Categories | Service classifications |
+| Bookings | Appointment booking |
+| Booking Items | Booking service details |
+| Payments | Payment handling |
+
+---
+
+# 🔒 Authentication
+
+This project uses JWT authentication.
+
+After login, use the generated token:
+
+```bash
+Bearer <your_token>
+```
+
+inside Swagger Authorize button or Postman Authorization header.
+
+---
+
+# 🚀 Future Improvements
+
+- Frontend integration
+- Online payment gateway integration
+- Email notification system
+- Admin dashboard UI
+- Booking cancellation feature
+- Workshop staff management
+- Service history tracking
+
+---
+
+# 👨‍💻 Author
+
+Developed by:
+
+**Subarqah Firdhaus Hardiansyah**
+
+RevoU FSSE - CRACK Project
+
+---
+
+# 📄 License
+
+This project is for educational and portfolio purposes.
