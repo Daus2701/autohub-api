@@ -45,6 +45,19 @@ export class BookingsService {
             id: createBookingDto.vehicleId,
           },
         },
+
+        bookingItems: {
+          create: createBookingDto.items.map((item) => ({
+            quantity: item.quantity,
+            subtotal: item.price * item.quantity,
+
+            service: {
+              connect: {
+                id: item.serviceId,
+              },
+            },
+          })),
+        },
       },
 
       include: {
@@ -59,6 +72,11 @@ export class BookingsService {
       include: {
         user: true,
         vehicle: true,
+        bookingItems: {
+          include: {
+            service: true,
+          },
+        },
       },
     });
   }
@@ -186,6 +204,47 @@ export class BookingsService {
         user: true,
         vehicle: true,
       },
+    });
+  }
+
+  async getBookedSlots(date: string) {
+
+    const bookings = await this.prisma.booking.findMany({
+      where: {
+        bookingDate: {
+          gte: new Date(`${date}T00:00:00.000Z`),
+          lte: new Date(`${date}T23:59:59.999Z`),
+        },
+      },
+      select: {
+        timeSlot: true,
+      },
+    });
+
+    return bookings.map((booking) => booking.timeSlot);
+  }
+
+  async getUserBookings(userId: string) {
+
+    return this.prisma.booking.findMany({
+
+        where: {
+            userId,
+        },
+
+        include: {
+            bookingItems: {
+                include: {
+                    service: true,
+                },
+            },
+
+            vehicle: true,
+        },
+
+        orderBy: {
+            createdAt: "desc",
+        },
     });
   }
 

@@ -55,4 +55,19 @@ export class CreateBookingDto {
   @IsOptional()
   @IsString()
   paymentStatus?: string;
+
+  @ApiProperty({
+    example: [
+      {
+        serviceId: 'service-id-here',
+        quantity: 1,
+        price: 250,
+      },
+    ],
+  })
+  items: {
+    serviceId: string;
+    quantity: number;
+    price: number;
+  }[];
 }

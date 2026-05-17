@@ -29,6 +29,11 @@ export class BookingsController {
     return this.bookingsService.create(createBookingDto);
   }
 
+  @Get('slots')
+  getBookedSlots(@Query('date') date: string) {
+    return this.bookingsService.getBookedSlots(date);
+  }
+
   @Get()
   @ApiOperation({ summary: 'Get all bookings' })
   findAll() {
@@ -51,6 +56,13 @@ export class BookingsController {
   @ApiOperation({ summary: 'Get booking by ID' })
   findOne(@Param('id') id: string) {
     return this.bookingsService.findOne(id);
+  }
+
+  @Get("user/:userId")
+  getUserBookings(
+      @Param("userId") userId: string,
+  ) {
+      return this.bookingsService.getUserBookings(userId);
   }
 
   @Patch(':id')
