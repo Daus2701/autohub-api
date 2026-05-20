@@ -3,15 +3,12 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-
 import { PrismaService } from '../prisma/prisma.service';
-
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-
 import * as bcrypt from 'bcrypt';
-
 import { JwtService } from '@nestjs/jwt';
+
 
 @Injectable()
 export class AuthService {
@@ -41,7 +38,7 @@ export class AuthService {
         fullName: registerDto.fullName,
         email: registerDto.email,
         password: hashedPassword,
-        role: 'CUSTOMER',
+        role: "CUSTOMER",
       },
     });
 
