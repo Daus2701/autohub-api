@@ -86,19 +86,19 @@ export class BookingsService {
 
     const completedBookings = await this.prisma.booking.count({
       where: {
-        status: 'COMPLETED',
+        status: 'Completed',
       },
     });
 
     const pendingBookings = await this.prisma.booking.count({
       where: {
-        status: 'PENDING',
+        status: 'Pending',
       },
     });
 
     const confirmedBookings = await this.prisma.booking.count({
       where: {
-        status: 'CONFIRMED',
+        status: 'In Progress',
       },
     });
 
@@ -192,7 +192,7 @@ export class BookingsService {
         }),
 
         ...(updateBookingDto.mechanic && {
-          mechanic: updateBookingDto.mechanic,
+          mechanic: updateBookingDto.mechanic || null,
         }),
 
         ...(updateBookingDto.paymentStatus && {
