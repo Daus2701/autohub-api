@@ -191,6 +191,10 @@ export class BookingsService {
           timeSlot: updateBookingDto.timeSlot,
         }),
 
+        ...(updateBookingDto.mechanic && {
+          mechanic: updateBookingDto.mechanic,
+        }),
+
         ...(updateBookingDto.paymentStatus && {
           paymentStatus: updateBookingDto.paymentStatus,
         }),

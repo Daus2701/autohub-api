@@ -41,6 +41,14 @@ export class CreateBookingDto {
   timeSlot: string;
 
   @ApiProperty({
+    example: "Aiman",
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  mechanic?: string;
+
+  @ApiProperty({
     example: 'Online Banking',
     required: false,
   })

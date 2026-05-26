@@ -41,6 +41,8 @@ model Booking {
   status      String
   timeSlot    String
 
+  mechanic    String?
+
   createdAt DateTime @default(now())
 
   paymentStatus  String        @default("PENDING")
